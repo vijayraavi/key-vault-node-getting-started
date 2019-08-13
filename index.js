@@ -29,4 +29,5 @@ app.get('/', function(req, res){
     res.send("Your secret is: " + secret);
  });
 
- module.exports = app;
+ const port = process.env.PORT || 1337;
+ app.listen(port, () => console.log("Server is running on port" + port);)
