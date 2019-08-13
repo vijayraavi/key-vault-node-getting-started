@@ -16,6 +16,8 @@ app.get('/', function(req, res){
  
  app.set('view engine', 'pug');
  app.set('views', './views');
+
+ app.use(express.urlencoded());
  
  // for parsing multipart/form-data
  app.use(upload.array()); 
