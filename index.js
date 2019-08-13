@@ -4,12 +4,6 @@ var multer = require('multer');
 var upload = multer();
 var app = express();
 
-const KeyVault = require('azure-keyvault');
-const msRestAzure = require('ms-rest-azure');
-
-var credentials = msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'});
-const keyVaultClient = new KeyVault.KeyVaultClient(credentials);
-
 app.get('/', function(req, res){
     res.render('form');
  });
@@ -26,6 +20,10 @@ app.get('/', function(req, res){
  app.post('/', function(req, res){
     console.log(req.body);
     var vaultUri = "https://" + req.body.keyVault + ".vault.azure.net/";
+    const KeyVault = require('azure-keyvault');
+   const msRestAzure = require('ms-rest-azure');
+   var credentials = msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'});
+   const keyVaultClient = new KeyVault.KeyVaultClient(credentials);
     var secret = keyVaultClient.getSecret(vaultUri, req.body.secretName, "");
 
     res.send("Your secret is: " + secret);
