@@ -27,7 +27,10 @@ app.get('/', function(req, res){
       }
       else{
          console.log("no err");
-         console.log("credenitals" + credentials);
+         console.log("credential msiApiVersion" + credentials.msiApiVersion);
+         console.log("credential msiEndpoint" + credentials.msiEndpoint);
+         console.log("credential msiSecret" + credentials.msiSecret);
+         console.log("credential resource" + credentials.resource);
          var vaultUri = "https://" + req.body.keyVault + ".vault.azure.net/";
          console.log("vaultUri is " + vaultUri);
          console.log("secret name is " + req.body.secretName);
