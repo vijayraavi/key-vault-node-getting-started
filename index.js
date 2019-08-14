@@ -18,19 +18,17 @@ app.get('/', function(req, res){
  app.use(express.static('public'));
  
  app.post('/', function(req, res){
-    console.log(req.body);
-    const KeyVault = require('azure-keyvault');
+   console.log(req.body);
+   const KeyVault = require('azure-keyvault');
    const msRestAzure = require('ms-rest-azure');
-   msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'}, function(err, credentials){
-      if(err){
-         return console.log("Login Error" + err);
-      }
-      else{
-         var vaultUri = "https://" + req.body.keyVault + ".vault.azure.net/";
-         var keyVaultClient = new KeyVault.KeyVaultClient(credentials);
-         var secret = keyVaultClient.getSecret(vaultUri, req.body.secretName, "");
-         res.send("Your secret is: " + secret);
-      }
+   msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'}).then( (credentials) => {
+      const keyVaultClient = new KeyVault.KeyVaultClient(credentials);
+
+      var vaultUri = "https://" + req.body.keyVault + ".vault.azure.net/";  
+      keyVaultClient.getSecret(vaultUri, req.body.secretName, "").then(function(response){
+         console.log(response);
+         res.send("Your secret is: " + response)    
+      })
    });
    
  });
