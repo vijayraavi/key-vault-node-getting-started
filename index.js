@@ -22,7 +22,7 @@ app.get('/', function(req, res){
    console.log(req.body);
    //const KeyVault = require('azure-keyvault');
    const msRestAzure = require('ms-rest-azure');
-   msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'}, function(err, credentials){
+   msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'}, async function(err, credentials){
       if(err){
          console.log("Login Error" + err);
       }
