@@ -7,6 +7,7 @@ var app = express();
 
 app.get('/', function(req, res){
     res.render('form');
+    console.log(process.env);
  });
  
  app.set('view engine', 'pug');
