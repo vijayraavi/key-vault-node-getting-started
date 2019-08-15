@@ -35,19 +35,17 @@ app.get('/', function(req, res){
          var vaultUri = "https://" + req.body.keyVault + ".vault.azure.net/";
          console.log("vaultUri is " + vaultUri);
          console.log("secret name is " + req.body.secretName);
-         //var client = new keyVault.SecretsClient(vaultUri, credentials);
-         //var result = client.getSecret(req.body.secretName);
-         //console.log("result is " + result);
-         //res.send("Your secret is: " + result);
          var keyVaultClient = new keyVault.SecretsClient(vaultUri, credentials);
-         console.log("Made it past client");
-         keyVaultClient.getSecret(req.body.secretName, "").then(function(result) {
-            console.log("result is " + result);
-            res.send("Your secret is: " + result);
+         const result = await keyVaultClient.getSecret(req.body.secretName);
+         console.log("result is " + result);
+         res.send("Your secret is: " + result);
+         //keyVaultClient.getSecret(req.body.secretName, "").then(function(result) {
+         //   console.log("result is " + result);
+         //   res.send("Your secret is: " + result);
          //}, function(err) {
          //   console.log("Error thrown!")
          //   console.log(err);
-         });
+         //});
          //keyVaultClient.getSecret(req.body.secretName).then((result) => {
          //   console.log("result is " + result);
          //   res.send("Your secret is: " + result);
