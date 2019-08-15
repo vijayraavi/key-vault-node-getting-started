@@ -44,9 +44,9 @@ app.get('/', function(req, res){
          keyVaultClient.getSecret(req.body.secretName, "").then(function(result) {
             console.log("result is " + result);
             res.send("Your secret is: " + result);
-         }, function(err) {
-            console.log("Error thrown!")
-            console.log(err);
+         //}, function(err) {
+         //   console.log("Error thrown!")
+         //   console.log(err);
          });
          //keyVaultClient.getSecret(req.body.secretName).then((result) => {
          //   console.log("result is " + result);
