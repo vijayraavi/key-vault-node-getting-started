@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+var keyVault = require('@azure/keyvault-secrets');
 var upload = multer();
 var app = express();
 
@@ -21,7 +22,6 @@ app.get('/', function(req, res){
    console.log(req.body);
    //const KeyVault = require('azure-keyvault');
    const msRestAzure = require('ms-rest-azure');
-   //const SecretClient = require('@azure/keyvault-secrets');
    msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'}, function(err, credentials){
       if(err){
          console.log("Login Error" + err);
@@ -35,11 +35,15 @@ app.get('/', function(req, res){
          var vaultUri = "https://" + req.body.keyVault + ".vault.azure.net/";
          console.log("vaultUri is " + vaultUri);
          console.log("secret name is " + req.body.secretName);
-         var client = new SecretsClient(vaultUri, credentials);
-         var result = client.getSecret(req.body.secretName);
-         console.log("result is " + result);
-         res.send("Your secret is: " + result);
- 
+         //var client = new keyVault.SecretsClient(vaultUri, credentials);
+         //var result = client.getSecret(req.body.secretName);
+         //console.log("result is " + result);
+         //res.send("Your secret is: " + result);
+         var keyVaultClient = new keyVault.SecretsClient(vaultUri, credentials);
+         keyVaultClient.getSecret(req.body.secretName).then((result) => {
+            console.log("result is " + result);
+            res.send("Your secret is: " + result);
+         })
 
          //var keyVaultClient = new KeyVault.KeyVaultClient(credentials);
          //keyVaultClient.getSecret(vaultUri, req.body.secretName, "").then((result) => {
