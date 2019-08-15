@@ -35,11 +35,12 @@ app.get('/', function(req, res){
          var vaultUri = "https://" + req.body.keyVault + ".vault.azure.net/";
          console.log("vaultUri is " + vaultUri);
          console.log("secret name is " + req.body.secretName);
+         SecretClient.getSecret(vaultUri, req.body.secretName, "").then((result) => {
+            console.log("result is " + result);
+            res.send("Your secret is: " + result);
+         })
+
          //var keyVaultClient = new KeyVault.KeyVaultClient(credentials);
-         const client = new SecretClient(vaultUri, credentials);
-         var secret = client.getSecret(req.body.secretName);
-         console.log("result is " + secret);
-         res.send("Your secret is: " + secret);
          //keyVaultClient.getSecret(vaultUri, req.body.secretName, "").then((result) => {
          //   console.log("result is " + result);
          //   res.send("Your secret is: " + result);
