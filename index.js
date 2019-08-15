@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
 var app = express();
-import {SecretClient} from "@azure/keyvault-secrets";
 
 app.get('/', function(req, res){
     res.render('form');
@@ -22,6 +21,7 @@ app.get('/', function(req, res){
    console.log(req.body);
    //const KeyVault = require('azure-keyvault');
    const msRestAzure = require('ms-rest-azure');
+   const SecretClient = require('@azure/keyvault-secrets');
    msRestAzure.loginWithAppServiceMSI({resource: 'https://vault.azure.net'}, function(err, credentials){
       if(err){
          console.log("Login Error" + err);
