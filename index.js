@@ -37,7 +37,7 @@ app.get('/', function(req, res){
          console.log("secret name is " + req.body.secretName);
          //var keyVaultClient = new KeyVault.KeyVaultClient(credentials);
          const client = new SecretClient(vaultUri, credentials);
-         var secret = await client.getSecret(req.body.secretName);
+         var secret = client.getSecret(req.body.secretName);
          console.log("result is " + secret);
          res.send("Your secret is: " + secret);
          //keyVaultClient.getSecret(vaultUri, req.body.secretName, "").then((result) => {
