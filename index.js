@@ -40,12 +40,13 @@ app.get('/', function(req, res){
          //console.log("result is " + result);
          //res.send("Your secret is: " + result);
          var keyVaultClient = new keyVault.SecretsClient(vaultUri, credentials);
-         keyVaultClient.getSecret(req.body.secretName, "").then(function(result) {
-            console.log("result is " + result);
-            res.send("Your secret is: " + result);
-         }, function(err) {
-            console.log(err);
-         });
+         console.log("Made it past client");
+         //keyVaultClient.getSecret(req.body.secretName, "").then(function(result) {
+         //   console.log("result is " + result);
+         //   res.send("Your secret is: " + result);
+         //}, function(err) {
+         //   console.log(err);
+         //});
          //keyVaultClient.getSecret(req.body.secretName).then((result) => {
          //   console.log("result is " + result);
          //   res.send("Your secret is: " + result);
